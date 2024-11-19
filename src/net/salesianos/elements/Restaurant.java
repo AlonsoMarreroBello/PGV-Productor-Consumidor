@@ -29,7 +29,7 @@ public class Restaurant {
         }
         
         freshProduceStock.add(crop);
-        System.out.println("Added " + crop + " to restaurant's stock.");
+        System.out.println("\nAdded " + crop + " to restaurant's stock.");
     }
 
     public synchronized void getCrop(String crop) {

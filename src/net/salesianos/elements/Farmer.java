@@ -7,11 +7,13 @@ public class Farmer extends Person implements Runnable {
                                 "tomato", "cucumber", "eggplant", "carrot", "green bean"};
     
     private int harvestCount;
+    private Restaurant restaurant;
 
-    public Farmer(String name, int harvestCount) {
+    public Farmer(String name, int harvestCount, Restaurant restaurant) {
         
         super(name);
         this.harvestCount = harvestCount;
+        this.restaurant = restaurant;
     }
 
     @Override
@@ -29,11 +31,13 @@ public class Farmer extends Person implements Runnable {
                 long cultivationTime = (long) (Math.random() * 5000 )+ 1000;
                 Thread.sleep(cultivationTime);
 
+                System.out.println("\n" + this.getName() + " is trying to deliver " + crop + " to the restaurant.");
+                restaurant.addCrop(crop);
 
                 System.out.println("\n" + this.getName() + " has successfully delivered " + crop + " to the restaurant.");
 
             } catch (InterruptedException e) {
-                
+
                 System.out.println("\n[ERROR] " + getName() + " was interrupted while cultivating.");
                 Thread.currentThread().interrupt();
             }
