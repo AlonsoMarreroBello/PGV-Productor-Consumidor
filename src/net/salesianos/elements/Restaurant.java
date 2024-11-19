@@ -19,7 +19,7 @@ public class Restaurant {
 
             try {
 
-                System.out.println("Restaurant is full, waiting to add " + crop + "...");
+                System.out.println("\nRestaurant is full, waiting to add " + crop + "...");
                 wait();
 
             } catch (InterruptedException e) {
@@ -30,6 +30,8 @@ public class Restaurant {
         
         freshProduceStock.add(crop);
         System.out.println("\nAdded " + crop + " to restaurant's stock.");
+
+        notifyAll();
     }
 
     public synchronized void getCrop(String crop) {

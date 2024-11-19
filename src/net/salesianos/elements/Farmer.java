@@ -40,6 +40,7 @@ public class Farmer extends Person implements Runnable {
 
                 System.out.println("\n[ERROR] " + getName() + " was interrupted while cultivating.");
                 Thread.currentThread().interrupt();
+                return;
             }
         }
     }
