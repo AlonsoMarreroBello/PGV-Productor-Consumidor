@@ -13,6 +13,13 @@ public class Restaurant {
         this.freshProduceStock = new LinkedList<>();
     }
 
+    public String getFreshProduceStock() {
+        if (freshProduceStock.size() != 0) {
+            return "The actual Products in the restaurant are : " + freshProduceStock;
+        }
+        return "There are no products";
+    }
+
     public synchronized void addCrop(String crop) {
 
         while (freshProduceStock.size() >= storageLimit) {
