@@ -3,7 +3,7 @@ package net.salesianos.elements;
 import java.util.LinkedList;
 
 public class Restaurant {
-    
+
     private int storageLimit;
     private LinkedList<String> freshProduceStock;
 
@@ -27,15 +27,31 @@ public class Restaurant {
                 Thread.currentThread().interrupt();
             }
         }
-        
+
         freshProduceStock.add(crop);
         System.out.println("\nAdded " + crop + " to restaurant's stock.");
 
         notifyAll();
     }
 
-    public synchronized void getCrop(String crop) {
-        
-        // All yours, mi pana xoxo <3
+    public synchronized void getCrop(String clientName) {
+
+        while (freshProduceStock.size() <= 0) {
+
+            try {
+                System.out.println("\u001B[31m \nRestaurant is empty, " + clientName + " is waiting to eat \u001B[0m");
+                wait();
+
+            } catch (InterruptedException e) {
+
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        String crop = freshProduceStock.pop();
+        System.out.println("\u001B[32m \n" + crop + " was eaten at the restaurant by a customer called " + clientName
+                + "\u001B[0m");
+
+        notifyAll();
     }
 }
