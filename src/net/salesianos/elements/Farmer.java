@@ -4,6 +4,8 @@ import net.salesianos.utils.MessageColor;
 
 public class Farmer extends Person implements Runnable {
 
+    private static int cropCounter = 0;
+    
     private final String[] CROPS = {"lettuce", "cabbage", "onion", "spinach", "potato",
                                 "celery", "asparagus", "radish", "broccoli", "artichoke",
                                 "tomato", "cucumber", "eggplant", "carrot", "green bean"};
@@ -26,18 +28,15 @@ public class Farmer extends Person implements Runnable {
             try {
 
                 String crop = CROPS[(int) (Math.random() * CROPS.length)];
+                String cropId = "C" + (++cropCounter);
 
-                System.out.println("\n(Harvest " + (i + 1) + "/" + harvestCount + ") Farmer " 
-                                    + this.getName() + " is planting " + crop + " in the field...");
-
-                long cultivationTime = (long) (Math.random() * 5000 )+ 1000;
+                System.out.println("[Farmer: " + getName() + "] 🌱 Planting \"" + crop + "\" (ID: " + cropId + ")");
+                long cultivationTime = (long) (Math.random() * 5000) + 1000;
                 Thread.sleep(cultivationTime);
 
-                System.out.println(MessageColor.YELLOW + "\nFarmer " + this.getName() + " is trying to deliver " + crop + " to the restaurant." + MessageColor.RESET);
-                restaurant.addCrop(crop);
-
-                System.out.println(MessageColor.GREEN + "\nFarmer " + this.getName() + " has successfully delivered " + crop + " to the restaurant." + MessageColor.RESET);
-
+                System.out.println("[Farmer: " + getName() + "] ✅ Delivering \"" + crop + "\" (ID: " + cropId + ") to the restaurant...");
+                restaurant.addCrop(cropId + ": " + crop);
+                
             } catch (InterruptedException e) {
 
                 System.out.println(MessageColor.RED + "\n[ERROR] Farmer " + getName() + " was interrupted while cultivating." + MessageColor.RESET);
