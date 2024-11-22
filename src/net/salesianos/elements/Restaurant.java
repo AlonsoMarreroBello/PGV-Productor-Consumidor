@@ -2,8 +2,6 @@ package net.salesianos.elements;
 
 import java.util.LinkedList;
 
-import net.salesianos.utils.MessageColor;
-
 public class Restaurant {
 
     private int storageLimit;
@@ -16,10 +14,8 @@ public class Restaurant {
     }
 
     public String getFreshProduceStock() {
-        if (freshProduceStock.size() != 0) {
-            return "\nThe current products available in the restaurant are : " + freshProduceStock;
-        }
-        return "\nThere are no products left in stock.";
+
+        return freshProduceStock.toString();
     }
 
     public synchronized void addCrop(String crop) {
@@ -28,8 +24,7 @@ public class Restaurant {
 
             try {
 
-                System.out.println("\nRestaurant is full, waiting to add " + crop + "...");
-                wait();
+                System.out.println("\n[Restaurant]❗Full capacity. Waiting to add \"" + crop + "\"...");                wait();
 
             } catch (InterruptedException e) {
 
@@ -38,18 +33,18 @@ public class Restaurant {
         }
 
         freshProduceStock.add(crop);
-        System.out.println(MessageColor.GREEN + "\nAdded " + crop + " to restaurant's stock." + MessageColor.RESET);
+        System.out.println("\n[Restaurant] ✅ Added \"" + crop + "\" to stock.");
+        System.out.println("\n[Restaurant] 🏬 Current Stock: " + freshProduceStock);
 
         notifyAll();
     }
 
     public synchronized void getCrop(String clientName) {
 
-        while (freshProduceStock.size() <= 0) {
+        while (freshProduceStock.isEmpty()) {
 
             try {
-                System.out.println(MessageColor.YELLOW + "\nRestaurant is empty, " + clientName + " is waiting to eat..." + MessageColor.RESET);
-                wait();
+                System.out.println("\n[Client: " + clientName + "]❗Restaurant is empty. Waiting...");                wait();
 
             } catch (InterruptedException e) {
 
@@ -58,8 +53,8 @@ public class Restaurant {
         }
 
         String crop = freshProduceStock.pop();
-        System.out.println(MessageColor.GREEN + "\n" + crop + " was eaten at the restaurant by customer " + clientName
-                + MessageColor.RESET);
+        System.out.println("\n[Client: " + clientName + "] ✅ Consumed \"" + crop + "\" from the restaurant.");
+        System.out.println("\n[Restaurant] 🏬 Current Stock: " + freshProduceStock);
 
         notifyAll();
     }

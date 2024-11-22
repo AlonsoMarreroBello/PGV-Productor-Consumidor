@@ -3,51 +3,45 @@ import net.salesianos.elements.Farmer;
 import net.salesianos.elements.Restaurant;
 
 public class App {
+
     public static void main(String[] args) {
 
         Restaurant restaurant = new Restaurant(10);
 
-        Farmer farmer1 = new Farmer("Paco", 5, restaurant);
-        Farmer farmer2 = new Farmer("Lucía", 3, restaurant);
-        Farmer farmer3 = new Farmer("Trululú", 7, restaurant);
+        final String[] FARMERS_NAMES = {"Paco", "Lucía", "Trululú"};
+        final int[] FARMERS_HARVESTS = {5, 3, 7};
+        final String[] CLIENTS_NAMES = {"Manolo", "Ernesto", "Sir Persibal Wilfredo"};
+        final int[] CLIENTS_VEGETABLES = {5, 3, 7}; 
 
-        Client client1 = new Client("Manolo", 5, restaurant);
-        Client client2 = new Client("Ernesto", 3, restaurant);
-        Client client3 = new Client("Sir Persibal Wilfredo", 7, restaurant);
+        Thread[] farmerThreads = new Thread[FARMERS_NAMES.length];
+        Thread[] clientThreads = new Thread[CLIENTS_NAMES.length];
 
-        Thread farmerThread1 = new Thread(farmer1);
-        farmerThread1.start();
+        for (int i = 0; i < FARMERS_NAMES.length; i++) {
 
-        Thread farmerThread2 = new Thread(farmer2);
-        farmerThread2.start();
+            Farmer farmer = new Farmer(FARMERS_NAMES[i], FARMERS_HARVESTS[i], restaurant);
+            farmerThreads[i] = new Thread(farmer);
+            farmerThreads[i].start();
+        }
 
-        Thread farmerThread3 = new Thread(farmer3);
-        farmerThread3.start();
+        for (int i = 0; i < CLIENTS_NAMES.length; i++) {
 
-        Thread clientThread1 = new Thread(client1);
-        clientThread1.start();
-
-        Thread clientThread2 = new Thread(client2);
-        clientThread2.start();
-
-        Thread clientThread3 = new Thread(client3);
-        clientThread3.start();
+            Client client = new Client(CLIENTS_NAMES[i], CLIENTS_VEGETABLES[i], restaurant);
+            clientThreads[i] = new Thread(client);
+            clientThreads[i].start();
+        }
 
         try {
 
-            farmerThread1.join();
-            farmerThread2.join();
-            farmerThread3.join();
-            clientThread1.join();
-            clientThread2.join();
-            clientThread3.join();
+            for (Thread farmerThread : farmerThreads) {
+                farmerThread.join();
+            }
+
+            for (Thread clientThread : clientThreads) {
+                clientThread.join();
+            }
 
         } catch (InterruptedException e) {
-
             e.printStackTrace();
         }
-
-        System.out.println(restaurant.getFreshProduceStock().toString());
-
     }
 }
