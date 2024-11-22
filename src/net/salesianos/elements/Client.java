@@ -1,5 +1,6 @@
 package net.salesianos.elements;
 
+import net.salesianos.utils.MessageColor;
 public class Client extends Person implements Runnable {
 
 	private int vegetablesToEat;
@@ -16,15 +17,17 @@ public class Client extends Person implements Runnable {
 		try {
 			for (int i = 0; i < vegetablesToEat; i++) {
 
-				long cultivationTime = (long) (Math.random() * 5000) + 1000;
-				Thread.sleep(cultivationTime);
 
-				System.out.println("\u001B[34m \n" + this.getName() + " is trying to eat at the restaurant.\u001B[0m");
+				System.out.println(MessageColor.BLUE + "\n" + this.getName() + " is trying to eat at the restaurant." + MessageColor.RESET);
+
+				long eatingTime = (long) (Math.random() * 5000) + 1000;
+				Thread.sleep(eatingTime);
+
 				restaurant.getCrop(this.getName());
 			}
 		} catch (InterruptedException e) {
 
-			System.out.println("\u001B[31m \n[ERROR] " + getName() + " was interrupted while eating. \u001B[0m");
+			System.out.println(MessageColor.RED + "\n[ERROR] " + getName() + " was interrupted while eating." + MessageColor.RESET);
 			Thread.currentThread().interrupt();
 			return;
 		}

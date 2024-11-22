@@ -2,6 +2,8 @@ package net.salesianos.elements;
 
 import java.util.LinkedList;
 
+import net.salesianos.utils.MessageColor;
+
 public class Restaurant {
 
     private int storageLimit;
@@ -36,7 +38,7 @@ public class Restaurant {
         }
 
         freshProduceStock.add(crop);
-        System.out.println("\nAdded " + crop + " to restaurant's stock.");
+        System.out.println(MessageColor.GREEN + "\nAdded " + crop + " to restaurant's stock." + MessageColor.RESET);
 
         notifyAll();
     }
@@ -46,7 +48,7 @@ public class Restaurant {
         while (freshProduceStock.size() <= 0) {
 
             try {
-                System.out.println("\u001B[31m \nRestaurant is empty, " + clientName + " is waiting to eat \u001B[0m");
+                System.out.println(MessageColor.YELLOW + "\nRestaurant is empty, " + clientName + " is waiting to eat..." + MessageColor.RESET);
                 wait();
 
             } catch (InterruptedException e) {
@@ -56,8 +58,8 @@ public class Restaurant {
         }
 
         String crop = freshProduceStock.pop();
-        System.out.println("\u001B[32m \n" + crop + " was eaten at the restaurant by a customer called " + clientName
-                + "\u001B[0m");
+        System.out.println(MessageColor.GREEN + "\n" + crop + " was eaten at the restaurant by a customer called " + clientName
+                + MessageColor.RESET);
 
         notifyAll();
     }
