@@ -17,9 +17,9 @@ public class Restaurant {
 
     public String getFreshProduceStock() {
         if (freshProduceStock.size() != 0) {
-            return "The actual Products in the restaurant are : " + freshProduceStock;
+            return "\nThe current products available in the restaurant are : " + freshProduceStock;
         }
-        return "There are no products";
+        return "\nThere are no products left in stock.";
     }
 
     public synchronized void addCrop(String crop) {
@@ -58,7 +58,7 @@ public class Restaurant {
         }
 
         String crop = freshProduceStock.pop();
-        System.out.println(MessageColor.GREEN + "\n" + crop + " was eaten at the restaurant by a customer called " + clientName
+        System.out.println(MessageColor.GREEN + "\n" + crop + " was eaten at the restaurant by customer " + clientName
                 + MessageColor.RESET);
 
         notifyAll();
