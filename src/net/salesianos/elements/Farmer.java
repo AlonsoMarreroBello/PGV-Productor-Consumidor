@@ -1,7 +1,5 @@
 package net.salesianos.elements;
 
-import net.salesianos.utils.MessageColor;
-
 public class Farmer extends Person implements Runnable {
 
     private static int cropCounter = 0;
@@ -30,16 +28,16 @@ public class Farmer extends Person implements Runnable {
                 String crop = CROPS[(int) (Math.random() * CROPS.length)];
                 String cropId = "C" + (++cropCounter);
 
-                System.out.println("[Farmer: " + getName() + "] 🌱 Planting \"" + crop + "\" (ID: " + cropId + ")");
+                System.out.println("\n[Farmer: " + getName() + "] 🌱 Planting \"" + crop + "\" (ID: " + cropId + ")");
                 long cultivationTime = (long) (Math.random() * 5000) + 1000;
                 Thread.sleep(cultivationTime);
 
-                System.out.println("[Farmer: " + getName() + "] ✅ Delivering \"" + crop + "\" (ID: " + cropId + ") to the restaurant...");
+                System.out.println("\n[Farmer: " + getName() + "] ✅ Delivering \"" + crop + "\" (ID: " + cropId + ") to the restaurant...");
                 restaurant.addCrop(cropId + ": " + crop);
-                
+
             } catch (InterruptedException e) {
 
-                System.out.println(MessageColor.RED + "\n[ERROR] Farmer " + getName() + " was interrupted while cultivating." + MessageColor.RESET);
+                System.out.println("\n[Farmer: " + getName() + "] ❌ Error: Interrupted while cultivating.");
                 Thread.currentThread().interrupt();
                 return;
             }
