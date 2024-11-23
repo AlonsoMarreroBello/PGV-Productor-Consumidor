@@ -8,10 +8,10 @@ public class App {
 
         Restaurant restaurant = new Restaurant(10);
 
-        final String[] FARMERS_NAMES = {"Paco", "Lucía", "Trululú"};
-        final int[] FARMERS_HARVESTS = {5, 3, 7};
-        final String[] CLIENTS_NAMES = {"Manolo", "Ernesto", "Sir Persibal Wilfredo"};
-        final int[] CLIENTS_VEGETABLES = {5, 3, 7}; 
+        final String[] FARMERS_NAMES = {"Trululú"};
+        final int[] FARMERS_HARVESTS = {5};
+        final String[] CLIENTS_NAMES = {"Bob"};
+        final int[] CLIENTS_VEGETABLES = {5}; 
 
         Thread[] farmerThreads = new Thread[FARMERS_NAMES.length];
         Thread[] clientThreads = new Thread[CLIENTS_NAMES.length];
